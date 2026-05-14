@@ -1,23 +1,14 @@
-const logger = {
-  info: (message, data = {}) => {
-    const logEntry = {
-      level: 'INFO',
-      timestamp: new Date().toISOString(),
-      message,
-      data,
-    };
-    window.dispatchEvent(new CustomEvent('app-log', { detail: logEntry }));
-  },
-  error: (message, error = {}) => {
-    const logEntry = {
-      level: 'ERROR',
-      timestamp: new Date().toISOString(),
-      message,
-      error: error.message || error,
-      stack: error.stack,
-    };
-    window.dispatchEvent(new CustomEvent('app-log', { detail: logEntry }));
-  }
-};
-
-export default logger;
+export const Log=async(stack,level,pkg,message)=>{
+  try{
+    let token=localStorage.getItem('bearerToken');
+    if(!token)return;
+    await fetch('http://4.224.186.213/evaluation-service/logs',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${token}`
+      },
+      body:JSON.stringify({stack,level,package:pkg,message})
+    });
+  }catch(e){}
+}

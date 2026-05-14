@@ -1,4 +1,4 @@
-import {logOperation} from './logger';
+import {Log} from '../../../logging_middleware/logger';
 
 export const getReadIds=()=>{
   let data=localStorage.getItem('read_notes');
@@ -10,6 +10,6 @@ export const markRead=(id)=>{
   if(!ids.includes(id)){
     ids.push(id);
     localStorage.setItem('read_notes',JSON.stringify(ids));
-    logOperation('marked note as read',{id});
+    Log('frontend','info','utils','notification marked as read');
   }
 }
