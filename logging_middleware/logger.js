@@ -2,7 +2,7 @@ export const Log=async(stack,level,pkg,message)=>{
   try{
     let token=localStorage.getItem('bearerToken');
     if(!token)return;
-    await fetch('http://4.224.186.213/evaluation-service/logs',{
+    await fetch('/evaluation-service/logs',{
       method:'POST',
       headers:{
         'Content-Type':'application/json',

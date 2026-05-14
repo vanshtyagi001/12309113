@@ -2,7 +2,7 @@ import axios from 'axios';
 import {Log} from '../../../logging_middleware/logger';
 
 const apiClient=axios.create({
-  baseURL:'http://4.224.186.213/evaluation-service',
+  baseURL:'/evaluation-service',
   timeout:10000,
 });
 

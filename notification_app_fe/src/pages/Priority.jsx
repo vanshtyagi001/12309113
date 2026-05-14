@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import {getNotes} from '../api/notifications';
 import {getReadIds} from '../utils/storage';
-import {logError,logOperation} from '../utils/logger';
+import {Log} from '../../../logging_middleware/logger';
 import NoteCard from '../components/NoteCard';
 import {CircularProgress,Typography,Box} from '@mui/material';
 
@@ -18,10 +18,10 @@ const Priority=()=>{
         let read=getReadIds();
         let unread=data.filter(n=>!read.includes(n.id)).slice(0,10);
         setNotes(unread);
-        logOperation('loaded priority notes',{count:unread.length});
+        Log('frontend','info','page','loaded priority notes successfully');
       }catch(e){
         setErr('failed to load notes');
-        logError('priority fail',e);
+        Log('frontend','error','page','priority notes fetch failed');
       }finally{
         setLoad(false);
       }

@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import {getNotes} from '../api/notifications';
 import {getReadIds} from '../utils/storage';
-import {logError,logOperation} from '../utils/logger';
+import {Log} from '../../../logging_middleware/logger';
 import NoteCard from '../components/NoteCard';
 import {CircularProgress,Typography,Box,Button,Select,MenuItem} from '@mui/material';
 
@@ -21,10 +21,10 @@ const AllNotes=()=>{
         if(type) params.notification_type=type;
         let data=await getNotes(params);
         setNotes(data);
-        logOperation('loaded all notes',{pg,type});
+        Log('frontend','info','page','loaded all notes successfully');
       }catch(e){
         setErr('error loading notes');
-        logError('all notes fail',e);
+        Log('frontend','error','page','all notes fetch failed');
       }finally{
         setLoad(false);
       }
